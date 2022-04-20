@@ -61,7 +61,7 @@ class TestingFreddie(unittest.TestCase):
     def testComment(self):
         # Poczekaj na załadowanie
         time.sleep(2)
-        self.browser.execute_script("window.scrollTo(0, 1000)")
+        self.browser.execute_script("window.scrollTo(0, 500)")
         # Znajdź pole komentarza
         WebDriverWait(self.browser, 15).until(EC.presence_of_element_located((By.XPATH, '//*[@id="placeholder-area"]'))).click()
         #Jeśli wyświetla się pole logowania, pass
