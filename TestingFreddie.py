@@ -7,8 +7,7 @@ from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 
 piosenka = 'Crazy little thing called love Queen'
-# przegladarka = input("Wybierz przeglądarkę wpisz chrome lub firefox: ")
-przegladarka = "chrome"
+przegladarka = input("Wybierz przeglądarkę wpisz chrome lub firefox: ")
 
 
 class TestingFreddie(unittest.TestCase):
@@ -39,27 +38,30 @@ class TestingFreddie(unittest.TestCase):
         self.browser.find_element(By.XPATH, '//a[@id="video-title"][1]').click()
 
     def testUpvote(self):
+        #Poczekaj na załadowanie
         time.sleep(2)
         #Znajdź i kliknij łapkę w górę
-        upVote = self.browser.find_element(By.XPATH, '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[6]/div[2]/ytd-video-primary-info-renderer/div/div/div[3]/div/ytd-menu-renderer/div[1]/ytd-toggle-button-renderer[1]/a/yt-icon-button/button/yt-icon')
+        upVote = self.browser.find_element(By.CSS_SELECTOR,
+                                           'ytd-toggle-button-renderer.style-scope:nth-child(1) > a:nth-child(1) > yt-icon-button:nth-child(1) > button')
         upVote.click()
         # Jeśli wyświetla się monit o zalogowanie, pass
         if self.browser.find_element(By.XPATH, '//iframe[@name="passive_signin"]').is_displayed():
             pass
 
     def testDownvote(self):
+        # Poczekaj na załadowanie
         time.sleep(2)
         #Znajdź i kliknij łapkę w dół
-        downVote = self.browser.find_element(By.XPATH, '/html/body/ytd-app/div[1]/ytd-page-manager/ytd-watch-flexy/div[5]/div[1]/div/div[6]/div[2]/ytd-video-primary-info-renderer/div/div/div[3]/div/ytd-menu-renderer/div[1]/ytd-toggle-button-renderer[2]/a/yt-icon-button/button/yt-icon')
+        downVote = self.browser.find_element(By.CSS_SELECTOR, 'ytd-toggle-button-renderer.style-scope:nth-child(2) > a:nth-child(1) > yt-icon-button:nth-child(1)')
         downVote.click()
         #Jeśli wyświetla się monit o zalogowanie, pass
         if self.browser.find_element(By.XPATH, '//iframe[@name="passive_signin"]').is_displayed():
             pass
 
     def testComment(self):
+        # Poczekaj na załadowanie
         time.sleep(2)
         self.browser.execute_script("window.scrollTo(0, 1000)")
-        time.sleep(2)
         # Znajdź pole komentarza
         WebDriverWait(self.browser, 15).until(EC.presence_of_element_located((By.XPATH, '//*[@id="placeholder-area"]'))).click()
         #Jeśli wyświetla się pole logowania, pass
